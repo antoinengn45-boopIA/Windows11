@@ -1,384 +1,165 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Windows 11 by Antoine</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Windows 11</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Segoe UI",sans-serif;
-}
-
-body{
-overflow:hidden;
-height:100vh;
-background:url("https://wallpaperaccess.com/full/317501.jpg") center center/cover;
-}
-
-#desktop{
-width:100%;
-height:100%;
-position:relative;
-}
-
-/* Icônes bureau */
-
-.desktop-icon{
-width:90px;
-padding:10px;
-text-align:center;
-color:white;
-cursor:pointer;
-margin:10px;
-}
-
-.desktop-icon img{
-width:48px;
-height:48px;
-}
-
-.desktop-icon span{
-display:block;
-margin-top:6px;
-font-size:13px;
-}
-
-/* Fenêtres */
-
-.window{
-position:absolute;
-width:700px;
-height:450px;
-
-top:100px;
-left:200px;
-
-background:rgba(255,255,255,.8);
-backdrop-filter:blur(25px);
-
-border-radius:12px;
-overflow:hidden;
-
-box-shadow:0 10px 40px rgba(0,0,0,.3);
-}
-
-.titlebar{
-height:40px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-
-padding:0 12px;
-
-background:rgba(245,245,245,.8);
-border-bottom:1px solid #ddd;
-}
-
-.title{
-font-weight:600;
-}
-
-.controls{
-display:flex;
-gap:4px;
-}
-
-.controls button{
-width:40px;
-height:28px;
-border:none;
-background:transparent;
-cursor:pointer;
-border-radius:6px;
-}
-
-.controls button:hover{
-background:#ddd;
-}
-
-.content{
-padding:15px;
-height:calc(100% - 40px);
-overflow:auto;
-}
-
-/* Barre des tâches */
-
-#taskbar{
-position:absolute;
-bottom:10px;
-left:50%;
-transform:translateX(-50%);
-
-height:58px;
-padding:0 15px;
-
-display:flex;
-align-items:center;
-gap:8px;
-
-background:rgba(32,32,32,.75);
-backdrop-filter:blur(30px);
-
-border-radius:18px;
-}
-
-.task-icon{
-width:42px;
-height:42px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-border-radius:10px;
-color:white;
-font-size:22px;
-}
-
-.task-icon:hover{
-background:rgba(255,255,255,.15);
-}
-
-/* Menu démarrer */
-
-#startMenu{
-position:absolute;
-
-bottom:80px;
-left:50%;
-transform:translateX(-50%);
-
-width:700px;
-height:650px;
-
-background:rgba(35,35,35,.85);
-backdrop-filter:blur(35px);
-
-border-radius:18px;
-
-display:none;
-
-padding:25px;
-color:white;
-}
-
-#search{
-width:100%;
-height:42px;
-
-border:none;
-outline:none;
-
-border-radius:10px;
-
-padding-left:15px;
-font-size:15px;
-}
-
-.apps{
-margin-top:25px;
-
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:20px;
-}
-
-.app{
-text-align:center;
-cursor:pointer;
-}
-
-.app-icon{
-font-size:40px;
-}
-
-.app-name{
-margin-top:5px;
-font-size:12px;
-}
-
-/* Horloge */
-
-#clock{
-color:white;
-font-size:14px;
-margin-left:20px;
-}
-</style>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div id="desktop">
+    <!-- Bureau -->
+    <div id="desktop">
 
-<div class="desktop-icon" ondblclick="openApp('explorer')">
-<img src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
-<span>Explorateur</span>
-</div>
+        <!-- Icônes -->
 
-<div class="desktop-icon" ondblclick="openApp('notepad')">
-<img src="https://cdn-icons-png.flaticon.com/512/888/888879.png">
-<span>Bloc-notes</span>
-</div>
+        <div class="desktop-icon" ondblclick="openApp('explorer')">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
+            <span>Explorateur</span>
+        </div>
 
-<div class="desktop-icon" ondblclick="openApp('calculator')">
-<img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png">
-<span>Calculatrice</span>
-</div>
+        <div class="desktop-icon" ondblclick="openApp('notepad')">
+            <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png">
+            <span>Bloc-notes</span>
+        </div>
 
-<div id="startMenu">
+        <div class="desktop-icon" ondblclick="openApp('paint')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png">
+            <span>Paint</span>
+        </div>
 
-<input id="search" placeholder="Rechercher">
+        <div class="desktop-icon" ondblclick="openApp('calculator')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png">
+            <span>Calculatrice</span>
+        </div>
 
-<div class="apps">
+        <div class="desktop-icon" ondblclick="openApp('settings')">
+            <img src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png">
+            <span>Paramètres</span>
+        </div>
 
-<div class="app" onclick="openApp('explorer')">
-<div class="app-icon">📁</div>
-<div class="app-name">Fichiers</div>
-</div>
+        <div class="desktop-icon" ondblclick="openApp('taskmgr')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png">
+            <span>Gestionnaire</span>
+        </div>
 
-<div class="app" onclick="openApp('notepad')">
-<div class="app-icon">📝</div>
-<div class="app-name">Bloc-notes</div>
-</div>
+        <!-- Menu démarrer -->
 
-<div class="app" onclick="openApp('calculator')">
-<div class="app-icon">🧮</div>
-<div class="app-name">Calculatrice</div>
-</div>
+        <div id="startMenu">
 
-<div class="app" onclick="openApp('settings')">
-<div class="app-icon">⚙️</div>
-<div class="app-name">Paramètres</div>
-</div>
+            <input
+                type="text"
+                id="search"
+                placeholder="Rechercher une application...">
 
-<div class="app" onclick="openApp('paint')">
-<div class="app-icon">🎨</div>
-<div class="app-name">Paint</div>
-</div>
+            <div class="apps">
 
-<div class="app" onclick="openApp('taskmgr')">
-<div class="app-icon">📊</div>
-<div class="app-name">Gestionnaire</div>
-</div>
+                <div class="app" onclick="openApp('explorer')">
+                    <div class="app-icon">📁</div>
+                    <div class="app-name">Explorateur</div>
+                </div>
 
-</div>
-</div>
+                <div class="app" onclick="openApp('notepad')">
+                    <div class="app-icon">📝</div>
+                    <div class="app-name">Bloc-notes</div>
+                </div>
 
-<div id="taskbar">
+                <div class="app" onclick="openApp('paint')">
+                    <div class="app-icon">🎨</div>
+                    <div class="app-name">Paint</div>
+                </div>
 
-<div class="task-icon" id="startBtn">⊞</div>
+                <div class="app" onclick="openApp('calculator')">
+                    <div class="app-icon">🧮</div>
+                    <div class="app-name">Calculatrice</div>
+                </div>
 
-<div class="task-icon">📁</div>
-<div class="task-icon">🌐</div>
-<div class="task-icon">📝</div>
-<div class="task-icon">🎨</div>
+                <div class="app" onclick="openApp('settings')">
+                    <div class="app-icon">⚙️</div>
+                    <div class="app-name">Paramètres</div>
+                </div>
 
-<div id="clock"></div>
+                <div class="app" onclick="openApp('taskmgr')">
+                    <div class="app-icon">📊</div>
+                    <div class="app-name">Gestionnaire</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<script>
+        <!-- Zone notifications -->
 
-const startBtn=document.getElementById("startBtn");
-const startMenu=document.getElementById("startMenu");
+        <div id="notifications"></div>
 
-startBtn.onclick=()=>{
-startMenu.style.display=
-startMenu.style.display==="block"
-?"none":"block";
-};
+    </div>
 
-function openApp(app){
+    <!-- Barre des tâches -->
 
-const win=document.createElement("div");
-win.className="window";
+    <div id="taskbar">
 
-let title=app;
+        <div
+            id="startBtn"
+            class="task-icon"
+            title="Démarrer">
+            ⊞
+        </div>
 
-if(app==="explorer") title="Explorateur";
-if(app==="notepad") title="Bloc-notes";
-if(app==="calculator") title="Calculatrice";
-if(app==="settings") title="Paramètres";
-if(app==="paint") title="Paint";
-if(app==="taskmgr") title="Gestionnaire de tâches";
+        <div
+            class="task-icon"
+            onclick="openApp('explorer')">
+            📁
+        </div>
 
-win.innerHTML=`
-<div class="titlebar">
-<div class="title">${title}</div>
+        <div
+            class="task-icon"
+            onclick="openApp('notepad')">
+            📝
+        </div>
 
-<div class="controls">
-<button onclick="this.closest('.window').remove()">✕</button>
-</div>
-</div>
+        <div
+            class="task-icon"
+            onclick="openApp('paint')">
+            🎨
+        </div>
 
-<div class="content">
-<h2>${title}</h2>
-<p>Application en cours de développement.</p>
-</div>
-`;
+        <div
+            class="task-icon"
+            onclick="openApp('calculator')">
+            🧮
+        </div>
 
-document.body.appendChild(win);
+        <div
+            class="task-icon"
+            onclick="openApp('settings')">
+            ⚙️
+        </div>
 
-dragWindow(win);
-}
+        <div
+            class="task-icon"
+            onclick="openApp('taskmgr')">
+            📊
+        </div>
 
-function dragWindow(win){
+        <div id="clock"></div>
 
-const bar=win.querySelector(".titlebar");
+    </div>
 
-let x=0;
-let y=0;
+    <!-- Scripts -->
 
-bar.onmousedown=function(e){
+    <script src="script.js"></script>
 
-x=e.clientX-win.offsetLeft;
-y=e.clientY-win.offsetTop;
-
-document.onmousemove=function(e){
-
-win.style.left=(e.clientX-x)+"px";
-win.style.top=(e.clientY-y)+"px";
-
-};
-
-document.onmouseup=function(){
-
-document.onmousemove=null;
-document.onmouseup=null;
-
-};
-
-};
-
-}
-
-function updateClock(){
-
-const now=new Date();
-
-document.getElementById("clock").innerHTML=
-now.toLocaleTimeString("fr-FR",{
-hour:"2-digit",
-minute:"2-digit"
-});
-
-}
-
-setInterval(updateClock,1000);
-updateClock();
-
-</script>
+    <script src="explorer.js"></script>
+    <script src="notepad.js"></script>
+    <script src="paint.js"></script>
+    <script src="calculator.js"></script>
+    <script src="settings.js"></script>
+    <script src="taskmgr.js"></script>
 
 </body>
 </html>
