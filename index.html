@@ -2,340 +2,125 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Windows 11 Web</title>
 
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        html,
-        body{
-            margin:0;
-            width:100%;
-            height:100%;
-            overflow:hidden;
-            font-family:'Segoe UI',sans-serif;
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            overflow: hidden;
         }
 
-        #desktop{
-            position:fixed;
-            inset:0;
-            background:url("assets/wallpaper.jpg") center center / cover no-repeat;
+        #desktop {
+            position: fixed;
+            inset: 0;
+            background: url("assets/wallpaper.jpg") center/cover;
         }
 
-        #desktop-icons{
-            position:absolute;
-            top:20px;
-            left:20px;
-            display:flex;
-            flex-direction:column;
-            gap:16px;
+        #taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
         }
 
-        .desktop-icon{
-            width:90px;
-            text-align:center;
-            color:white;
-            cursor:pointer;
-            user-select:none;
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            background: url("assets/wallpaper.jpg") center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
         }
 
-        .desktop-icon img{
-            width:48px;
-            height:48px;
+        .login-box {
+            width: 340px;
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
         }
 
-        #taskbar{
-            position:absolute;
-            left:0;
-            right:0;
-            bottom:0;
-            height:52px;
-            backdrop-filter:blur(20px);
-            background:rgba(255,255,255,.7);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            gap:10px;
-            border-top:1px solid rgba(0,0,0,.1);
-            z-index:9999;
+        .login-box input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
         }
 
-        .taskbar-btn{
-            width:42px;
-            height:42px;
-            border:none;
-            border-radius:10px;
-            cursor:pointer;
-            font-size:20px;
-            background:transparent;
+        .login-box button {
+            width: 100%;
+            margin-top: 8px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
         }
 
-        .taskbar-btn:hover{
-            background:rgba(0,0,0,.08);
-        }
-
-        #start-menu{
-            position:absolute;
-            bottom:65px;
-            left:50%;
-            transform:translateX(-50%);
-            width:650px;
-            height:650px;
-            background:rgba(255,255,255,.95);
-            backdrop-filter:blur(30px);
-            border-radius:20px;
-            display:none;
-            flex-direction:column;
-            padding:20px;
-            box-shadow:0 10px 40px rgba(0,0,0,.2);
-            z-index:10000;
-        }
-
-        #start-menu input{
-            padding:12px;
-            border-radius:10px;
-            border:1px solid #ccc;
-            margin-bottom:20px;
-        }
-
-        .app-grid{
-            display:grid;
-            grid-template-columns:repeat(4,1fr);
-            gap:15px;
-        }
-
-        .app{
-            height:90px;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            cursor:pointer;
-            border-radius:12px;
-        }
-
-        .app:hover{
-            background:rgba(0,0,0,.05);
-        }
-
-        .app-icon{
-            font-size:32px;
-        }
-
-        #clock{
-            position:absolute;
-            right:20px;
-            bottom:14px;
-            font-size:14px;
+        #user-list {
+            margin-top: 10px;
+            font-size: 13px;
+            opacity: 0.8;
         }
     </style>
 </head>
 
 <body>
 
-<div id="desktop">
+<!-- ================= LOGIN ================= -->
+<div id="login-screen">
 
-    <div id="desktop-icons">
+    <div class="login-box">
 
-        <div class="desktop-icon"
-             ondblclick="openExplorer()">
-            📁
-            <div>Explorateur</div>
-        </div>
+        <h2>Windows 11 Web</h2>
 
-        <div class="desktop-icon"
-             ondblclick="openNotepad()">
-            📝
-            <div>Bloc-notes</div>
-        </div>
+        <p>Connexion</p>
 
-        <div class="desktop-icon"
-             ondblclick="openTerminal()">
-            💻
-            <div>CMD</div>
-        </div>
+        <input id="login-username" placeholder="Nom d'utilisateur">
 
-        <div class="desktop-icon"
-             ondblclick="openBrowser()">
-            🌐
-            <div>Browser</div>
-        </div>
+        <input id="login-password" type="password" placeholder="Mot de passe">
+
+        <button onclick="registerUser()">
+            Créer un compte
+        </button>
+
+        <button onclick="loginUser()">
+            Se connecter
+        </button>
+
+        <div id="user-list"></div>
 
     </div>
+
+</div>
+
+<!-- ================= DESKTOP ================= -->
+<div id="desktop" style="display:none;">
 
     <div id="taskbar">
 
-        <button
-            id="start-btn"
-            class="taskbar-btn">
-            ⊞
-        </button>
-
-        <button
-            class="taskbar-btn"
-            onclick="openExplorer()">
-            📁
-        </button>
-
-        <button
-            class="taskbar-btn"
-            onclick="openNotepad()">
-            📝
-        </button>
-
-        <button
-            class="taskbar-btn"
-            onclick="openTerminal()">
-            💻
-        </button>
-
-        <button
-            class="taskbar-btn"
-            onclick="openCalculator()">
-            🧮
-        </button>
-
-        <button
-            class="taskbar-btn"
-            onclick="openBrowser()">
-            🌐
-        </button>
-
-        <button
-            class="taskbar-btn"
-            onclick="openSettings()">
-            ⚙️
-        </button>
-
-        <button
-            class="taskbar-btn"
-            onclick="openTaskManager()">
-            📊
-        </button>
-
-    </div>
-
-    <div id="clock"></div>
-
-</div>
-
-<div id="start-menu">
-
-    <input
-        type="text"
-        placeholder="Rechercher une application...">
-
-    <div class="app-grid">
-
-        <div class="app"
-             onclick="launchApp('explorer')">
-            <div class="app-icon">📁</div>
-            <span>Explorateur</span>
-        </div>
-
-        <div class="app"
-             onclick="launchApp('notepad')">
-            <div class="app-icon">📝</div>
-            <span>Bloc-notes</span>
-        </div>
-
-        <div class="app"
-             onclick="launchApp('cmd')">
-            <div class="app-icon">💻</div>
-            <span>CMD</span>
-        </div>
-
-        <div class="app"
-             onclick="launchApp('calculator')">
-            <div class="app-icon">🧮</div>
-            <span>Calculatrice</span>
-        </div>
-
-        <div class="app"
-             onclick="launchApp('settings')">
-            <div class="app-icon">⚙️</div>
-            <span>Paramètres</span>
-        </div>
-
-        <div class="app"
-             onclick="launchApp('taskmgr')">
-            <div class="app-icon">📊</div>
-            <span>Task Manager</span>
-        </div>
-
-        <div class="app"
-             onclick="openBrowser()">
-            <div class="app-icon">🌐</div>
-            <span>Browser</span>
-        </div>
-
-        <div class="app"
-             onclick="openNotificationHistory()">
-            <div class="app-icon">🔔</div>
-            <span>Notifications</span>
-        </div>
+        <button onclick="logoutUser()">🚪 Déconnexion</button>
 
     </div>
 
 </div>
 
-<!-- Scripts -->
-
+<!-- ================= SCRIPTS ================= -->
 <script src="js/windowmanager.js"></script>
-
-<script src="js/filesystem.js"></script>
-
-<script src="js/explorer.js"></script>
-
-<script src="js/notepad.js"></script>
-
-<script src="js/terminal.js"></script>
-
-<script src="js/calculator.js"></script>
-
-<script src="js/startmenu.js"></script>
-
-<script src="js/settings.js"></script>
-
-<script src="js/taskmgr.js"></script>
-
 <script src="js/notifications.js"></script>
-
-<script src="js/browser.js"></script>
-
-<script>
-function updateClock() {
-
-    const now = new Date();
-
-    document.getElementById("clock")
-        .innerHTML =
-        now.toLocaleDateString("fr-FR")
-        + "<br>" +
-        now.toLocaleTimeString("fr-FR");
-}
-
-setInterval(updateClock,1000);
-
-updateClock();
-
-window.addEventListener(
-    "load",
-    () => {
-
-        if(
-            typeof showNotification
-            === "function"
-        ){
-            showNotification(
-                "Windows 11 Web",
-                "Bienvenue Antoine !"
-            );
-        }
-    }
-);
-</script>
+<script src="js/users.js"></script>
 
 </body>
 </html>
