@@ -1,0 +1,342 @@
+/*
+====================================
+WINDOWS 11 WEB - STYLE.CSS
+====================================
+*/
+
+:root {
+    --accent-color: #0078d7;
+    --glass: rgba(255,255,255,0.6);
+    --glass-dark: rgba(30,30,30,0.6);
+}
+
+/*
+====================================
+GLOBAL
+====================================
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden;
+    background: #000;
+}
+
+/*
+====================================
+WINDOW
+====================================
+*/
+
+.window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+    backdrop-filter: blur(20px);
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.3);
+    min-width: 300px;
+    min-height: 200px;
+}
+
+.window-content {
+    flex: 1;
+    background: white;
+    overflow: auto;
+}
+
+/*
+====================================
+TITLE BAR
+====================================
+*/
+
+.titlebar {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    background: rgba(240,240,240,0.8);
+    cursor: grab;
+    user-select: none;
+}
+
+.titlebar-title {
+    font-size: 13px;
+}
+
+.titlebar-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.window-btn {
+    width: 30px;
+    height: 26px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.window-btn:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+.close-btn:hover {
+    background: red;
+    color: white;
+}
+
+/*
+====================================
+RESIZE HANDLE
+====================================
+*/
+
+.window-resize {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    cursor: se-resize;
+}
+
+/*
+====================================
+DESKTOP ICONS
+====================================
+*/
+
+.desktop-icon {
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.desktop-icon:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/*
+====================================
+START MENU
+====================================
+*/
+
+#start-menu {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.app-grid .app {
+    transition: 0.2s;
+}
+
+.app-grid .app:hover {
+    transform: scale(1.05);
+}
+
+/*
+====================================
+TASKBAR
+====================================
+*/
+
+#taskbar {
+    backdrop-filter: blur(25px);
+    background: rgba(255,255,255,0.6);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+/*
+====================================
+TERMINAL
+====================================
+*/
+
+.terminal {
+    background: #0c0c0c;
+    color: #00ff88;
+    font-family: Consolas, monospace;
+    height: 100%;
+    padding: 10px;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ff88;
+    outline: none;
+}
+
+/*
+====================================
+EXPLORER
+====================================
+*/
+
+.explorer {
+    display: flex;
+    height: 100%;
+}
+
+.sidebar {
+    width: 200px;
+    background: #f2f2f2;
+    padding: 10px;
+}
+
+.sidebar-item {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.sidebar-item:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+.explorer-content {
+    flex: 1;
+    padding: 10px;
+    background: white;
+}
+
+.folder {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/*
+====================================
+CALCULATOR
+====================================
+*/
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.calc-display {
+    font-size: 32px;
+    padding: 10px;
+    text-align: right;
+    border: none;
+    outline: none;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    padding: 10px;
+}
+
+.calc-grid button {
+    padding: 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.calc-grid button:hover {
+    background: #ddd;
+}
+
+/*
+====================================
+SETTINGS
+====================================
+*/
+
+.settings {
+    padding: 20px;
+}
+
+.settings-card {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f5f5f5;
+}
+
+/*
+====================================
+TASK MANAGER
+====================================
+*/
+
+.taskmgr table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.taskmgr th,
+.taskmgr td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+/*
+====================================
+NOTIFICATIONS
+====================================
+*/
+
+#notification-center {
+    font-family: "Segoe UI", sans-serif;
+}
+
+/*
+====================================
+SCROLLBAR
+====================================
+*/
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+/*
+====================================
+ANIMATIONS
+====================================
+*/
+
+.window {
+    animation: openWin 0.15s ease-out;
+}
+
+@keyframes openWin {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
